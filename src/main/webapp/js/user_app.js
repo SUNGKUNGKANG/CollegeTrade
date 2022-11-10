@@ -1,0 +1,29 @@
+var scrip_vue = new Vue({
+    el:"#app-user",
+    data:{
+        user:{}
+    },
+    methods:{
+        checkLogin(){
+            axios.post("UserServlet?action=checkLogin").then(response=>{
+                if(response.data.status){
+                    this.user = response.data.data;
+                }else{
+									alert(response.data.message);
+									location.href="login.html";
+                }
+            })
+        },
+        logOut(){
+            axios.post("UserServlet?action=logout").then(response=>{
+                if(response.data.status){
+                    alert("已退出登录！")
+                    location.href="login.html";
+                }
+            })
+        }
+    },
+    created(){
+        this.checkLogin();
+    }
+})
