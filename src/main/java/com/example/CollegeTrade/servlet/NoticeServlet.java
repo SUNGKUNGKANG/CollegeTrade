@@ -30,13 +30,14 @@ public class NoticeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
         String action = request.getParameter("action");
+        //根据参数调用指定的方法
         try {
-            //取得当前类
+            //取得当前类对象
             Class<? extends NoticeServlet> cls = this.getClass();
-            //取得方法
+            //根据获得方法名与参数获得对应方法
             Method method = cls.getDeclaredMethod(action, HttpServletRequest.class, HttpServletResponse.class);
+            //传参调用指定方法
             method.invoke(this, request, response);
         } catch (Exception e) {
             e.printStackTrace();

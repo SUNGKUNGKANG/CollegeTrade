@@ -31,17 +31,15 @@ public class GoodServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //设置一下字符集
         request.setCharacterEncoding("UTF-8");
-        //获取地址拦转入的参数
         String action = request.getParameter("action");
         //根据参数调用指定的方法
         try {
-            //创建一个Class对象
+            //取得当前类对象
             Class<? extends GoodServlet> cls = this.getClass();
-            //找根据获得方法名寻找对应方法
+            //根据获得方法名与参数获得对应方法
             Method method = cls.getDeclaredMethod(action, HttpServletRequest.class, HttpServletResponse.class);
-            //调用指定方法
+            //传参调用指定方法
             method.invoke(this, request, response);
         } catch (Exception e) {
             e.printStackTrace();
